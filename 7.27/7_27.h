@@ -1,4 +1,4 @@
-// 'word' é como se fosse uma palavra de memoria, um conteúdo, um número
+// 'word' é como se fosse uma palavra de memory, um conteúdo, um número
 
 // INPUT / OUTPUT
 #define READ 10   //Le uma 'word' do terminal e coloca numa posição da memória   (1031 - Lê do terminal e coloca na posição 31 da memória)
@@ -28,48 +28,48 @@
 
 #define HALT 43   //PROGRAMA FINALIZOU SUAS TAREFAS
 
-void reiniciar_memoria(int *memoria){
+void clear_memory(int *memory){
     for(int i = 0; i < 100; i++){
-        memoria[i] = 0;
+        memory[i] = 0;
     }
 }
 
-int verifica_operacao(int operacao, int operando, int *memoria, int *acc){
-    switch(operacao){
+void verify_and_execute_operation(int operation, int operand, int *memory, int *acc){
+    switch(operation){
         int num;
         case READ:
-            printf("Digite um numero para ser carregado na memoria: ");
+            printf("Digite um numero para ser carregado na memory: ");
             scanf("%d", &num);
-            *(memoria + operando) = num;
+            *(memory + operand) = num;
             break;
 
         case WRITE:
-            num = *(memoria + operando);
-            printf("Numero da posicao de memoria %d: %d\n\n", operando, num);
+            num = *(memory + operand);
+            printf("Numero da posicao de memory %d: %d\n\n", operand, num);
             break;
 
         case LOAD:
-            *acc = *(memoria + operando);
+            *acc = *(memory + operand);
             break;
 
         case STORE:
-            *(memoria + operando) = *acc;
+            *(memory + operand) = *acc;
             break;
 
         case ADD:
-            *acc = *acc + (*(memoria + operando));
+            *acc = *acc + (*(memory + operand));
             break;
 
         case SUBTRACT:
-            *acc = *acc - (*(memoria + operando));
+            *acc = *acc - (*(memory + operand));
             break;
 
         case DIVIDE:
-            *acc = *acc/(*(memoria + operando));
+            *acc = *acc/(*(memory + operand));
             break;
 
         case MULTIPLY:
-            *acc = *acc*(*(memoria + operando));
+            *acc = *acc*(*(memory + operand));
             break;
 
         case BRANCH:
