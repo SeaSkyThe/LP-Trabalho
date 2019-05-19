@@ -34,55 +34,121 @@ void clear_memory(int *memory){
     }
 }
 
-void verify_and_execute_operation(int operation, int operand, int *memory, int *acc){
-    switch(operation){
+void verify_and_execute_operation_just_positive(int *operation, int *operand, int *memory, int *acc, int *program_counter){
+    *operation = *(memory + *program_counter)/100; //Extrai a operação a ser feita
+    *operand = *(memory + *program_counter)%100; //Extrai o *operando (posicao de memorória)
+    switch(*operation){
         int num;
         case READ:
-            printf("Digite um numero para ser carregado na memory: ");
+            entrada: printf("Por favor digite um numero POSITIVO para ser carregado na memoria: ");
             scanf("%d", &num);
-            *(memory + operand) = num;
-            break;
+            if(num > 0){
+                *(memory + *operand) = num;
+                break;
+            }
+            else{
+                printf("Siga as orientações!\n");
+                goto entrada;
+            }
 
         case WRITE:
-            num = *(memory + operand);
-            printf("Numero da posicao de memory %d: %d\n\n", operand, num);
+            num = *(memory + *operand);
+            printf("Numero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
             break;
 
         case LOAD:
-            *acc = *(memory + operand);
+            *acc = *(memory + *operand);
             break;
 
         case STORE:
-            *(memory + operand) = *acc;
+            *(memory + *operand) = *acc;
             break;
 
         case ADD:
-            *acc = *acc + (*(memory + operand));
+            *acc = *acc + (*(memory + *operand));
             break;
 
         case SUBTRACT:
-            *acc = *acc - (*(memory + operand));
+            *acc = *acc - (*(memory + *operand));
             break;
 
         case DIVIDE:
-            *acc = *acc/(*(memory + operand));
+            *acc = *acc/(*(memory + *operand));
             break;
 
         case MULTIPLY:
-            *acc = *acc*(*(memory + operand));
+            *acc = *acc*(*(memory + *operand));
             break;
 
-        case BRANCH:
-
+        case BRANCH:  //Nao foi feito
+            *program_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
-        case BRANCHNEG:
+        case BRANCHNEG:  //Nao foi feito
             if(*acc < 0){
-
+                *program_counter = *operand - 1;
             }
             break;
-        case BRANCHZERO:
+        case BRANCHZERO:  //Nao foi feito
             if(*acc == 0){
+                *program_counter = *operand - 1;
+            }
+        case HALT:
+            exit(0);
+            break;
+    }
+}
 
+void verify_and_execute_operation(int *operation, int *operand, int *memory, int *acc, int *program_counter){
+    *operation = *(memory + *program_counter)/100; //Extrai a operação a ser feita
+    *operand = *(memory + *program_counter)%100; //Extrai o *operando (posicao de memorória)
+    switch(*operation){
+        int num;
+        case READ:
+            printf("Por favor digite um numero POSITIVO para ser carregado na memoria: ");
+            scanf("%d", &num);
+            *(memory + *operand) = num;
+            break;
+
+        case WRITE:
+            num = *(memory + *operand);
+            printf("Numero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
+            break;
+
+        case LOAD:
+            *acc = *(memory + *operand);
+            break;
+
+        case STORE:
+            *(memory + *operand) = *acc;
+            break;
+
+        case ADD:
+            *acc = *acc + (*(memory + *operand));
+            break;
+
+        case SUBTRACT:
+            *acc = *acc - (*(memory + *operand));
+            break;
+
+        case DIVIDE:
+            *acc = *acc/(*(memory + *operand));
+            break;
+
+        case MULTIPLY:
+            *acc = *acc*(*(memory + *operand));
+            break;
+
+        case BRANCH:  //Nao foi feito
+            *program_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
+            break;
+        case BRANCHNEG:  //Nao foi feito
+            if(*acc < 0){
+                *program_counter = *operand - 1;
+            }
+            break;
+        case BRANCHZERO:  //Nao foi feito
+            if(*acc == 0){
+                *program_counter = *operand - 1;
             }
         case HALT:
             exit(0);

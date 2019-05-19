@@ -4,13 +4,10 @@
 
 int main(void){
 
-
     //Criando e inicializando a memória
     int memory[100];
     clear_memory(memory);
     int acc = 0; //Acumulador(registrador) que irá guardar os resultados de operações quando necessário
-
-
 
 
     // EXERCICIO a)
@@ -54,20 +51,11 @@ int main(void){
     int operation;  //Variavel que guarda a operação a ser feita
     int operand;  //Variavel que guarda o operando (posição de memória) da operação
 
-    int aux = 0;
+    int program_counter = 0;
     while(1){
-        operation = memory[aux]/100; //Extrai a operação a ser feita
-        operand = memory[aux]%100; //Extrai o operando (posicao de memorória)
-
-        verify_and_execute_operation(operation, operand, memory, &acc);  //Passando endereço de memória e acc, ja que precisam ser modificados na função
-        aux++;
+        verify_and_execute_operation_just_positive(&operation, &operand, memory, &acc, &program_counter);  //Passando endereço de memória e acc, ja que precisam ser modificados na função
+        program_counter++;
     }
-
-
-
-
-
-    // EXERCICIO b)
 
     return 0;
 }
