@@ -32,13 +32,94 @@ void clear_memory(int *memory){
     }
 }
 
+<<<<<<< HEAD:7.27 e 7.28/7_27.h
+void verify_and_execute_operation(int *operation, int *operand, int *memory, int *acc, int *program_counter){
+=======
+void verify_and_execute_operation_just_positive(int *operation, int *operand, int *memory, int *acc, int *program_counter){
+>>>>>>> dcef352a8f2f48276cb52e0b6aa754daf98917ee:7.27/7_27.h
+    *operation = *(memory + *program_counter)/100; //Extrai a operação a ser feita
+    *operand = *(memory + *program_counter)%100; //Extrai o *operando (posicao de memorória)
+    switch(*operation){
+        int num;
+        case READ:
+<<<<<<< HEAD:7.27 e 7.28/7_27.h
+            printf("Por favor digite um numero para ser carregado na memoria: ");
+            scanf("%d", &num);
+            *(memory + *operand) = num;
+            break;
+=======
+            entrada: printf("Por favor digite um numero POSITIVO para ser carregado na memoria: ");
+            scanf("%d", &num);
+            if(num > 0){
+                *(memory + *operand) = num;
+                break;
+            }
+            else{
+                printf("Siga as orientações!\n");
+                goto entrada;
+            }
+>>>>>>> dcef352a8f2f48276cb52e0b6aa754daf98917ee:7.27/7_27.h
+
+        case WRITE:
+            num = *(memory + *operand);
+            printf("Numero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
+            break;
+
+        case LOAD:
+            *acc = *(memory + *operand);
+            break;
+
+        case STORE:
+            *(memory + *operand) = *acc;
+            break;
+
+        case ADD:
+            *acc = *acc + (*(memory + *operand));
+            break;
+
+        case SUBTRACT:
+            *acc = *acc - (*(memory + *operand));
+            break;
+
+        case DIVIDE:
+            *acc = *acc/(*(memory + *operand));
+            break;
+
+        case MULTIPLY:
+            *acc = *acc*(*(memory + *operand));
+            break;
+
+        case BRANCH:  //Nao foi feito
+<<<<<<< HEAD:7.27 e 7.28/7_27.h
+            *program_counter = *operand -1;  //-1 porque no fim do loop ele é incrementado em 1
+=======
+            *program_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
+>>>>>>> dcef352a8f2f48276cb52e0b6aa754daf98917ee:7.27/7_27.h
+            break;
+        case BRANCHNEG:  //Nao foi feito
+            if(*acc < 0){
+                *program_counter = *operand - 1;
+            }
+            break;
+        case BRANCHZERO:  //Nao foi feito
+            if(*acc == 0){
+                *program_counter = *operand - 1;
+<<<<<<< HEAD:7.27 e 7.28/7_27.h
+=======
+            }
+        case HALT:
+            exit(0);
+            break;
+    }
+}
+
 void verify_and_execute_operation(int *operation, int *operand, int *memory, int *acc, int *program_counter){
     *operation = *(memory + *program_counter)/100; //Extrai a operação a ser feita
     *operand = *(memory + *program_counter)%100; //Extrai o *operando (posicao de memorória)
     switch(*operation){
         int num;
         case READ:
-            printf("Por favor digite um numero para ser carregado na memoria: ");
+            printf("Por favor digite um numero POSITIVO para ser carregado na memoria: ");
             scanf("%d", &num);
             *(memory + *operand) = num;
             break;
@@ -73,7 +154,7 @@ void verify_and_execute_operation(int *operation, int *operand, int *memory, int
             break;
 
         case BRANCH:  //Nao foi feito
-            *program_counter = *operand -1;  //-1 porque no fim do loop ele é incrementado em 1
+            *program_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
         case BRANCHNEG:  //Nao foi feito
             if(*acc < 0){
@@ -83,6 +164,7 @@ void verify_and_execute_operation(int *operation, int *operand, int *memory, int
         case BRANCHZERO:  //Nao foi feito
             if(*acc == 0){
                 *program_counter = *operand - 1;
+>>>>>>> dcef352a8f2f48276cb52e0b6aa754daf98917ee:7.27/7_27.h
             }
         case HALT:
             exit(0);
