@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 // INPUT / OUTPUT
 #define READ 10   //Le uma 'word' do terminal e coloca numa posição da memória   (1031 - Lê do terminal e coloca na posição 31 da memória)
 
@@ -32,10 +34,11 @@ void clear_memory(int *memory){
     }
 }
 
-void verify_and_execute_operation(int *operation, int *operand, int *memory, int *acc, int *program_counter){
-    *operation = *(memory + *program_counter)/100; //Extrai a operação a ser feita
-    *operand = *(memory + *program_counter)%100; //Extrai o *operando (posicao de memorória)
-    switch(*operation){
+void verify_and_execute_operation(int *operationCode, int *operand, int *memory, int *acc, int *instruction_counter, int *instruction_register){
+    *instruction_register = memory[*instruction_counter];
+    *operationCode = *(memory + *instruction_counter)/100; //Extrai a operação a ser feita
+    *operand = *(memory + *instruction_counter)%100; //Extrai o *operando (posicao de memorória)
+    switch(*operationCode){
         int num;
         case READ:
             printf("Por favor digite um numero para ser carregado na memoria: ");
@@ -73,18 +76,34 @@ void verify_and_execute_operation(int *operation, int *operand, int *memory, int
             break;
 
         case BRANCH:  //Nao foi feito
-            *program_counter = *operand -1;  //-1 porque no fim do loop ele é incrementado em 1
+            *instruction_counter = *operand -1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
         case BRANCHNEG:  //Nao foi feito
             if(*acc < 0){
-                *program_counter = *operand - 1;
+                *instruction_counter = *operand - 1;
             }
             break;
         case BRANCHZERO:  //Nao foi feito
             if(*acc == 0){
-                *program_counter = *operand - 1;
+                *instruction_counter = *operand - 1;
             }
         case HALT:
+            printf("*** Simpletron execution terminated ***\n");
+            printf("REGISTERS:\n");
+            printf("Accumlator: %d\n", *acc);
+            printf("instructionCounter: %d\n", *instruction_counter);
+            printf("instructionRegister: %d\n", *instruction_register);
+            printf("operationCode: %d\n", *operationCode);
+            printf("operand: %d\n", *operand);
+
+            printf("\nMEMORY:\n");
+            for(int i = 0; i < 100; i = i + 10){
+                printf("\n");
+                for(int k = 0; k < 10; k++){
+                    printf("%6d ", memory[i+k]);
+                }
+            }
+            printf("\n");
             exit(0);
             break;
     }

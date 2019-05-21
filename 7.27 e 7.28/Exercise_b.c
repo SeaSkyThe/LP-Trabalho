@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "7_27.h"
+#include "base.h"
 
 
 int main(void){
@@ -14,10 +14,9 @@ int main(void){
     int acc = 0;
 
     //Instruções sendo carregadas na memória
-    memory[0] = 1017;
-    memory[1] = 3017;
-
-    memory[2] = 1017;
+    memory[0] = 1019;
+    memory[1] = 2019;
+    memory[2] = 21;
     memory[3] = 3017;
 
     memory[16] = 4300;
