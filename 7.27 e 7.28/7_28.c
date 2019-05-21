@@ -17,12 +17,17 @@ int main(void){
     int memory[100] = {0};
 
     //Loading program
-    int instruction = 0;
-    for(int i = 0; instruction != -99999; i++){
-        printf("%3d (?): ", i);
-        scanf("%d", &instruction);
-        memory[i] = instruction;
-    }
+    int instruction;
+
+        for(int i = 0; instruction != -99999; i++){
+            instruction = 10000;
+            while((instruction < -9999 || instruction > 9999) && instruction != -99999){
+                printf("%3d (?): ", i);
+                scanf("%d", &instruction);
+                memory[i] = instruction;
+            }
+        }
+
     printf("\n*** Program loading completed ***\n");
     printf("*** Program execution begins  ***\n");
 

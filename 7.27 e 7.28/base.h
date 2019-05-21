@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 // INPUT / OUTPUT
 #define READ 10   //Le uma 'word' do terminal e coloca numa posição da memória   (1031 - Lê do terminal e coloca na posição 31 da memória)
 
@@ -28,6 +29,7 @@
 
 #define HALT 43   //PROGRAMA FINALIZOU SUAS TAREFAS
 
+
 void clear_memory(int *memory){
     for(int i = 0; i < 100; i++){
         memory[i] = 0;
@@ -39,7 +41,7 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
     *operationCode = *(memory + *instruction_counter)/100; //Extrai a operação a ser feita
     *operand = *(memory + *instruction_counter)%100; //Extrai o *operando (posicao de memorória)
     switch(*operationCode){
-        int num;
+        int num = 0;
         case READ:
             printf("Por favor digite um numero para ser carregado na memoria: ");
             scanf("%d", &num);
@@ -68,7 +70,29 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             break;
 
         case DIVIDE:
-            *acc = *acc/(*(memory + *operand));
+            if(*(memory+*operand) != 0){
+                *acc = *acc/(*(memory + *operand));
+            }
+            else{
+                printf("\n*** Attempt to divide by zero ***\n");
+                printf("*** Simpletron execution abnormally terminated ***\n");
+                printf("REGISTERS:\n");
+                printf("Accumlator: %d\n", *acc);
+                printf("instructionCounter: %d\n", *instruction_counter);
+                printf("instructionRegister: %d\n", *instruction_register);
+                printf("operationCode: %d\n", *operationCode);
+                printf("operand: %d\n", *operand);
+
+                printf("\nMEMORY:\n");
+                for(int i = 0; i < 100; i = i + 10){
+                    printf("\n");
+                    for(int k = 0; k < 10; k++){
+                        printf("%6d ", memory[i+k]);
+                    }
+                }
+                printf("\n");
+                exit(0);
+            }
             break;
 
         case MULTIPLY:
