@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "base.h"
+#include "Simpletron.h"
 
 
 int main(void){
 
-    printf("*** Welcome to Simpletron! ***\n");
+    printf("\n\n*** Welcome to Simpletron! ***\n");
     printf("*** Please enter your program one instruction ***\n");
     printf("*** (or data word) at a time. I will type the ***\n");
     printf("*** location number and a question mark (?).  ***\n");
@@ -18,7 +18,6 @@ int main(void){
 
     //Loading program
     int instruction;
-
         for(int i = 0; instruction != -99999; i++){
             instruction = 10000;
             while((instruction < -9999 || instruction > 9999) && instruction != -99999){

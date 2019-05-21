@@ -50,7 +50,7 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
 
         case WRITE:
             num = *(memory + *operand);
-            printf("Numero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
+            printf("\nNumero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
             break;
 
         case LOAD:
@@ -99,18 +99,20 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             *acc = *acc*(*(memory + *operand));
             break;
 
-        case BRANCH:  //Nao foi feito
-            *instruction_counter = *operand -1;  //-1 porque no fim do loop ele é incrementado em 1
+        case BRANCH:
+            *instruction_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
-        case BRANCHNEG:  //Nao foi feito
+        case BRANCHNEG:
             if(*acc < 0){
                 *instruction_counter = *operand - 1;
             }
             break;
-        case BRANCHZERO:  //Nao foi feito
+        case BRANCHZERO:
             if(*acc == 0){
                 *instruction_counter = *operand - 1;
             }
+            break;
+
         case HALT:
             printf("*** Simpletron execution terminated ***\n");
             printf("REGISTERS:\n");
@@ -127,8 +129,9 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
                     printf("%6d ", memory[i+k]);
                 }
             }
-            printf("\n");
+            printf("\n\n\n");
             exit(0);
             break;
+        break;
     }
 }

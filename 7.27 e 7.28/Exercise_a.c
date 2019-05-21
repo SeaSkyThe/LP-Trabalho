@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "base.h"
+#include "Simpletron.h"
 
 int main(void){
 
