@@ -33,10 +33,10 @@ int main(void){
 
     int operation;  //Variavel que guarda a operação a ser feita
     int operand;  //Variavel que guarda o operando (posição de memória) da operação
-
     int program_counter = 0;
+    int instructionRegister = 0;
     while(1){
-        verify_and_execute_operation(&operation, &operand, memory, &acc, &program_counter);  //Passando endereço de memória e acc, ja que precisam ser modificados na função
+        verify_and_execute_operation(&operation, &operand, memory, &acc, &program_counter, &instructionRegister);
         program_counter++;
     }
 
