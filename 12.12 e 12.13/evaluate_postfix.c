@@ -12,8 +12,6 @@ int main(void){
     for(int i = 0; infix[i] != '\0'; i++){
         printf("%c", infix[i]);
     }
-
-
     convertToPostfix(infix, postfix);
 
     printf("\n\nPostFix: \n");
