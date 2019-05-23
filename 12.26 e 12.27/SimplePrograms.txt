@@ -1,0 +1,128 @@
+a)
+
+10 rem      calculate the average of 3 numbers
+20 input i
+30 input j
+40 input k
+50 rem      calculate the average
+60 let l = (i + j + k)/3
+70 rem      print result
+80 print k
+
+
+b)
+
+10 rem      calculate the sum of 10 numbers
+20 input i
+23 rem      test for sentinel
+30 if i = -99999 goto 60
+33 rem      increment sum
+40 let k = k + i
+43 rem      loop to get next number
+50 goto 20
+60 print k
+70 end
+
+c)
+
+10 rem      calculate the average of 7 numbers
+13 rem      creating counter
+20 let i = 0
+30 input j
+33 rem      increment counter
+40 let i = i + 1
+43 rem      increment sum
+50 let k = k + j
+53 rem      verify counter
+55 rem      loop to get next number
+50 if i < 7 goto 30
+60 print k
+70 end
+
+d)
+
+10 rem      determine the largest of inputed numbers
+13 rem      first one determine how many numbers will be inputed
+20 input i
+23 rem      creating counter
+30 let j = 0
+40 input k
+43 rem      variable "largest" receives number K
+50 let m = k
+53 rem      verify if counter is MAX(i)
+55 if j >= i goto 110
+60 input l
+61 let j = j + 1
+63 rem      compare numbers
+70 if l > m goto 90
+73 rem      return loop
+80 goto 55
+83 rem      case l > k change variable "largest"
+90 let m = l
+100 goto 55
+110 print m
+120 end
+
+e)
+
+10 rem      determine the smallest of 10 integers
+13 rem      determine how many numbers will be entered
+20 let i = 10
+23 rem      creating counter
+30 let j = 0
+40 input k
+43 rem      variable "smallest" receives number K
+50 let m = k
+53 rem      verify if counter is MAX(i)
+55 if j >= i goto 110
+60 input l
+61 let j = j + 1
+63 rem      compare numbers
+70 if l < m goto 90
+73 rem      return loop
+80 goto 55
+83 rem      case l < k change variable "smallest"
+90 let m = l
+100 goto 55
+110 print m
+120 end
+
+f)
+
+10 rem      calculate the sum of the even integers from 2 to 30
+13 rem      define MAX as 30
+20 let i = 30
+23 rem      creating counter
+30 let j = 2
+31 rem      creating sum
+35 let k = 0
+37 rem      verify if numbers are in the range 2 to 30
+40 if j == 30 goto 70
+43 rem      increment sum(k) and counter(J)
+50 let k = k + j
+53 let j = j + 2
+55 rem      loop
+60 goto 40
+62 rem      print and end
+70 print j
+80 end
+
+g)
+
+10 rem      calculate the product of the odd integers from 1 to 9
+13 rem      define MAX as 9
+20 let i = 9
+23 rem      creating counter
+30 let j = 1
+31 rem      creating product
+35 let k = 0
+37 rem      verify if numbers are in the range 2 to 30
+40 if j == 9 goto 70
+43 rem      increment product(k) and counter(J)
+50 let k = k * j
+53 let j = j + 2
+55 rem      loop
+60 goto 40
+62 rem      print and end
+70 print j
+80 end

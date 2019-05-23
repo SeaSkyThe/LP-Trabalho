@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include "stack.h"
 
-
-//Functions
+//Functions user to convert INFIX to POSTFIX 12.12
 int isOperator(char c){
     if(c == '+' || c == '-' || c == '/' || c == '*' || c == '^' || c == '%'){
         return 1;
@@ -78,22 +78,48 @@ void convertToPostfix(char infix[], char postfix[]){
     }
 }
 
-int main(void){
-    char infix[100] = "6+2*5-8/4";
-    char postfix[100] = {0};
+//--------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------//
+//FUNCTIONS USED TO EVALUATE POSTFIX EXPRESSIONS 12.13
 
-    printf("\n\nInfix: \n");
-    for(int i = 0; infix[i] != '\0'; i++){
-        printf("%c", infix[i]);
+
+int calculate(int op1, int op2, char operator){
+    if(operator == '+'){
+        return (op1 + op2);
     }
-
-
-    convertToPostfix(infix, postfix);
-
-    printf("\n\nPostFix: \n");
-    for(int i = 0; postfix[i] != '\0'; i++){
-        printf("%c", postfix[i]);
+    else if(operator == '-'){
+        return (op1 - op2);
     }
-    printf("\n\n");
-    return 0;
+    else if(operator == '*'){
+        return (op1 * op2);
+    }
+    else if(operator == '/'){
+        return (op1 / op2);
+    }
+    else if(operator == '^'){
+        return (pow(op1,op2));
+    }
+    else{
+        return 0;
+    }
+}
+
+int evaluatePostfixExpression(char *expr){
+    int x, y;
+    struct stack *stack = (struct stack*)malloc(sizeof(struct stack));
+    start_stack(stack);
+    for(int i = 0; *(expr + i) != '\0'; i++){
+        if(isOperator(*(expr + i))){
+            x = pop(stack);
+            y = pop(stack);
+            push(stack, calculate(y, x, *(expr + i)));
+        }
+        else if(isdigit(*(expr + i))){
+            int value = *(expr + i) - '0';
+            push(stack , value);
+
+        }
+    }
+    return pop(stack);
 }
