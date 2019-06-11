@@ -8,7 +8,8 @@ int main(void){
     char postfix[100] = {0};
 
     printf("\n\nInfix: \n");
-    for(int i = 0; infix[i] != '\0'; i++){
+    int i;
+    for(i = 0; infix[i] != '\0'; i++){
         printf("%c", infix[i]);
     }
 

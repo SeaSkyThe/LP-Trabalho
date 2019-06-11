@@ -13,11 +13,11 @@ int main(void){
     // EXERCICIO a)
 
     //Operações a serem feitas
-    memory[0] = 1020;  //Le entrada no terminal e coloca na posição 20 da memoria
+    memory[0] = 1020; //Le entrada no terminal e coloca na posição 20 da memoria
     memory[1] = 2020; //Carrega da posição de memoria 20 e joga no acumulador
-    memory[2] = 4110;    //Se o acumulador tiver num negativo, finaliza o programa
+    memory[2] = 4110; //Se o acumulador tiver num negativo, finaliza o programa
 
-    memory[3] = 1021;  //Le entrada no terminal e coloca na posição 21 da memoria(sobreescreve)
+    memory[3] = 1021;  //Le entrada no terminal e coloca na posição 21 da m4emoria(sobreescreve)
     memory[4] = 2021;  //Carrega o numero da posição de memoria 21 no Acumulador
     memory[5] = 4109;  //Se o segundo numero lido for negativo, pular para posicao 9
 

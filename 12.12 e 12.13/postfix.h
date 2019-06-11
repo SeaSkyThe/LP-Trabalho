@@ -109,7 +109,8 @@ int evaluatePostfixExpression(char *expr){
     int x, y;
     struct stack *stack = (struct stack*)malloc(sizeof(struct stack));
     start_stack(stack);
-    for(int i = 0; *(expr + i) != '\0'; i++){
+    int i;
+    for(i= 0; *(expr + i) != '\0'; i++){
         if(isOperator(*(expr + i))){
             x = pop(stack);
             y = pop(stack);

@@ -1,0 +1,8 @@
+10 rem      calculate the average of 3 numbers
+20 input i
+30 input j
+40 input k
+50 rem      calculate the average
+60 let l = ( i + j + k ) / 3
+70 rem      print result
+80 print k
