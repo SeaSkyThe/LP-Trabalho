@@ -85,20 +85,20 @@ void convertToPostfix(char infix[], char postfix[]){
 //FUNCTIONS USED TO EVALUATE POSTFIX EXPRESSIONS 12.13
 
 
-int calculate(int op1, int op2, char operator){
-    if(operator == '+'){
+int calculate(int op1, int op2, char operador){
+    if(operador == '+'){
         return (op1 + op2);
     }
-    else if(operator == '-'){
+    else if(operador == '-'){
         return (op1 - op2);
     }
-    else if(operator == '*'){
+    else if(operador == '*'){
         return (op1 * op2);
     }
-    else if(operator == '/'){
+    else if(operador == '/'){
         return (op1 / op2);
     }
-    else if(operator == '^'){
+    else if(operador == '^'){
         return (pow(op1,op2));
     }
     else{
