@@ -17,7 +17,7 @@ int main(void){
     convertToPostfix(infix, postfix);
 
     printf("\n\nPostFix: \n");
-    for(int i = 0; postfix[i] != '\0'; i++){
+    for(i = 0; postfix[i] != '\0'; i++){
         printf("%c", postfix[i]);
     }
     printf("\n\n");

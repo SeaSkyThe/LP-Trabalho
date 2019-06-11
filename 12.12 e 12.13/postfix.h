@@ -50,9 +50,10 @@ void convertToPostfix(char infix[], char postfix[]){
     push(op_parenthesis, '(');
     strcat(infix,")");
     int count_postfix = 0;
+    int i;
 
     while(!isEmpty(op_parenthesis)){
-        for(int i = 0; *(infix + i) != '\0'; i++){
+        for(i = 0; *(infix + i) != '\0'; i++){
             if(!isOperator(*(infix + i)) && *(infix + i) != '(' && *(infix + i) != ')'){
                 *(postfix + count_postfix) = *(infix + i);
                 count_postfix++;
