@@ -22,8 +22,12 @@ int main(int argc, char *argv[]){
       // printf("+%d\n", instruction);
     }
 
+    FILE* f = fopen("execution_output.txt", "w");
+
     printf("\n*** Program loading completed for %s ***\n", filename);
+    fprintf(f, "*** Program loading completed for %s ***\n", filename);
     printf("*** Program execution begins  ***\n");
+    fprintf(f, "*** Program execution begins  ***\n");
 
     //Execution starts
     int acc_register = 0;       //Acumulador --- Nao tem oq explicar
@@ -33,9 +37,10 @@ int main(int argc, char *argv[]){
     int operand = 0;           //Local da memória sob a qual a operação vai ser realizada
 
     while(1){
-        verify_and_execute_operation(&operationCode, &operand, memory, &acc_register, &instructionCounter, &instructionRegister);
+        verify_and_execute_operation(&operationCode, &operand, memory, &acc_register, &instructionCounter, &instructionRegister, f);
         instructionCounter++;
     }
 
+    fclose(f);
     return 0;
 }
