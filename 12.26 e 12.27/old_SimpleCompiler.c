@@ -16,7 +16,7 @@ int main(void){
     //READING STRUCTURE
     FILE *file;
     char line[1000];
-    char *local = "/Users/seaskythe/Documents/LP-Trabalho/12.26 e 12.27/programs.txt";
+    char *local = "programs.txt";
 
     if ((file = fopen(local, "r")) == NULL)
     {
