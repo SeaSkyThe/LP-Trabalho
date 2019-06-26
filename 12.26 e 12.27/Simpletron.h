@@ -39,7 +39,7 @@ void clear_memory(int *memory){
     }
 }
 
-void verify_and_execute_operation(int *operationCode, int *operand, int *memory, int *acc, int *instruction_counter, int *instruction_register){
+void verify_and_execute_operation(int *operationCode, int *operand, int *memory, int *acc, int *instruction_counter, int *instruction_register, FILE* f){
     *instruction_register = memory[*instruction_counter];
     *operationCode = *(memory + *instruction_counter)/100; //Extrai a operação a ser feita
     *operand = *(memory + *instruction_counter)%100; //Extrai o *operando (posicao de memorória)
@@ -48,12 +48,14 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
         case READ:
             printf("Por favor digite um numero para ser carregado na memoria: ");
             scanf("%d", &num);
+            fprintf(f, "Por favor digite um numero para ser carregado na memoria: %d\n", num);
             *(memory + *operand) = num;
             break;
 
         case WRITE:
             num = *(memory + *operand);
             printf("\nNumero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
+            fprintf(f, "\nNumero armazenado na posicao de memoria de armazenamento: %d\n\n", num);
             break;
 
         case LOAD:
@@ -78,24 +80,35 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             }
             else{
                 printf("\n*** Attempt to divide by zero ***\n");
+                fprintf(f, "\n*** Attempt to divide by zero ***\n");
                 printf("*** Simpletron execution abnormally terminated ***\n");
+                fprintf(f, "*** Simpletron execution abnormally terminated ***\n");
                 printf("REGISTERS:\n");
+                fprintf(f, "REGISTERS:\n");
                 printf("Accumlator: %d\n", *acc);
+                fprintf(f, "Accumlator: %d\n", *acc);
                 printf("instructionCounter: %d\n", *instruction_counter);
+                fprintf(f, "instructionCounter: %d\n", *instruction_counter);
                 printf("instructionRegister: %d\n", *instruction_register);
+                fprintf(f, "instructionRegister: %d\n", *instruction_register);
                 printf("operationCode: %d\n", *operationCode);
+                fprintf(f, "operationCode: %d\n", *operationCode);
                 printf("operand: %d\n", *operand);
+                fprintf(f, "operand: %d\n", *operand);
 
                 printf("\nMEMORY:\n");
+                fprintf(f, "\nMEMORY:\n");
                 int i;
                 for(i = 0; i < 100; i = i + 10){
                     printf("\n");
                     int k = 0;
                     for(k = 0; k < 10; k++){
                         printf("%6d ", memory[i+k]);
+                        fprintf(f, "%6d ", memory[i+k]);
                     }
                 }
                 printf("\n");
+                fprintf(f, "\n");
                 exit(0);
             }
             break;
@@ -147,23 +160,34 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
 
         case HALT:
             printf("*** Simpletron execution terminated ***\n");
+            fprintf(f, "*** Simpletron execution terminated ***\n");
             printf("REGISTERS:\n");
+            fprintf(f, "REGISTERS:\n");
             printf("Accumlator: %d\n", *acc);
+            fprintf(f, "Accumlator: %d\n", *acc);
             printf("instructionCounter: %d\n", *instruction_counter);
+            fprintf(f, "instructionCounter: %d\n", *instruction_counter);
             printf("instructionRegister: %d\n", *instruction_register);
+            fprintf(f, "instructionRegister: %d\n", *instruction_register);
             printf("operationCode: %d\n", *operationCode);
+            fprintf(f, "operationCode: %d\n", *operationCode);
             printf("operand: %d\n", *operand);
+            fprintf(f, "operand: %d\n", *operand);
 
             printf("\nMEMORY:\n");
+            fprintf(f, "\nMEMORY:\n");
             int i;
             for(i = 0; i < 100; i = i + 10){
                 printf("\n");
+                fprintf(f, "\n");
                 int k = 0;
                 for(k = 0; k < 10; k++){
                     printf("%6d ", memory[i+k]);
+                    fprintf(f, "%6d ", memory[i+k]);
                 }
             }
             printf("\n\n\n");
+            fprintf(f, "\n\n\n");
             exit(0);
             break;
         break;
