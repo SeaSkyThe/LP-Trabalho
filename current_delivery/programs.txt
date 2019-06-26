@@ -1,0 +1,15 @@
+10 rem      calculate the average of 7 numbers
+13 rem      creating counter
+20 let i = 1
+21 let f = 8
+30 input j
+33 rem      increment counter
+40 let i = i + 1
+43 rem      increment sum
+50 let k = k + j
+53 rem      verify counter
+55 rem      loop to get next number
+50 if f > i goto 30
+55 let a = k / 7
+60 print a
+70 end
