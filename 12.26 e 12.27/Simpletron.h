@@ -16,9 +16,12 @@
 
 #define SUBTRACT 31 //Subtrai uma 'word' de uma posição da memória da 'word' no que está no acumulador (deixa o resultado no acumulador)
 
-#define DIVIDE 32  //Divide uma 'word' de uma posição da memória pela 'word' no que está no acumulador (deixa o resultado no acumulador) - Duvidas
+#define DIVIDE 32  //Divide uma 'word' do acumulador pela 'word' no esta na pos de memoria(deixa o resultado no acumulador) - Duvidas
 
 #define MULTIPLY 33 //Multiplica uma 'word' de uma posição da memória pela 'word' no que está no acumulador (deixa o resultado no acumulador)
+
+#define MODULUS 34 //Faz a operação %, de uma 'word' numa posição de memoria pela que está no acumulador, e deixa o resultado no acumulador
+
 
 // TRANSFERIR O CONTROLE DE OPERAÇÕES
 #define BRANCH 40     // "BRANCH" para uma posição especifica da memória
@@ -71,7 +74,7 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
 
         case DIVIDE:
             if(*(memory+*operand) != 0){
-                *acc = *acc/(*(memory + *operand));
+                *acc = *(*(memory + *operand))/(*acc);
             }
             else{
                 printf("\n*** Attempt to divide by zero ***\n");
@@ -101,6 +104,33 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             *acc = *acc*(*(memory + *operand));
             break;
 
+        case MODULUS:
+        if(*(memory+*operand) != 0){
+            *acc = (*(memory + *operand))%(*acc);
+        }
+        else{
+            printf("\n*** Attempt to divide by zero ***\n");
+            printf("*** Simpletron execution abnormally terminated ***\n");
+            printf("REGISTERS:\n");
+            printf("Accumlator: %d\n", *acc);
+            printf("instructionCounter: %d\n", *instruction_counter);
+            printf("instructionRegister: %d\n", *instruction_register);
+            printf("operationCode: %d\n", *operationCode);
+            printf("operand: %d\n", *operand);
+
+            printf("\nMEMORY:\n");
+            int i;
+            for(i = 0; i < 100; i = i + 10){
+                printf("\n");
+                int k = 0;
+                for(k = 0; k < 10; k++){
+                    printf("%6d ", memory[i+k]);
+                }
+            }
+            printf("\n");
+            exit(0);
+        }
+        break;
         case BRANCH:
             *instruction_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
