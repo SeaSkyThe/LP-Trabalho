@@ -127,6 +127,9 @@ int evaluatePostfixExpression(char *expr, int* current_variable_entry, int* curr
         case '%':
           add_compiled_command((34 * 100) + x);
           break;
+        case '^':
+          add_compiled_command((35 * 100) + x);
+          break;
       }
       add_compiled_command((21 * 100) + *current_variable_entry);
       if (debug) printf("%d", (21 * 100) + *current_variable_entry);

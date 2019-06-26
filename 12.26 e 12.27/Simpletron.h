@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 // INPUT / OUTPUT
 #define READ 10   //Le uma 'word' do terminal e coloca numa posição da memória   (1031 - Lê do terminal e coloca na posição 31 da memória)
@@ -19,12 +20,13 @@
 
 #define SUBTRACT 31 //Subtrai uma 'word' de uma posição da memória da 'word' no que está no acumulador (deixa o resultado no acumulador)
 
-#define DIVIDE 32  //Divide uma 'word' do acumulador pela 'word' no esta na pos de memoria(deixa o resultado no acumulador) - Duvidas
+#define DIVIDE 32  //Divide uma 'word' da pos de memoria pela 'word' no acc(deixa o resultado no acumulador) - Duvidas
 
 #define MULTIPLY 33 //Multiplica uma 'word' de uma posição da memória pela 'word' no que está no acumulador (deixa o resultado no acumulador)
 
 #define MODULUS 34 //Faz a operação %, de uma 'word' numa posição de memoria pela que está no acumulador, e deixa o resultado no acumulador
 
+#define POW 35 //Faz a operação de exponenciação de uma 'word' da pos memoria pela que está no acc (memoria ^ acc)
 
 // TRANSFERIR O CONTROLE DE OPERAÇÕES
 #define BRANCH 40     // "BRANCH" para uma posição especifica da memória
@@ -42,6 +44,14 @@ void clear_memory(int *memory){
     }
 }
 
+int power(int base, int power){
+    if(power != 0){
+        return (base*power(base, power - 1));
+    }
+    else{
+        return 1;
+    }
+}
 void verify_and_execute_operation(int *operationCode, int *operand, int *memory, int *acc, int *instruction_counter, int *instruction_register, FILE* f){
     *instruction_register = memory[*instruction_counter];
     *operationCode = *(memory + *instruction_counter)/100; //Extrai a operação a ser feita
@@ -125,32 +135,37 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             break;
 
         case MODULUS:
-        if(*(memory+*operand) != 0){
-            *acc = (*(memory + *operand))%(*acc);
-        }
-        else{
-            printf("\n*** Attempt to divide by zero ***\n");
-            printf("*** Simpletron execution abnormally terminated ***\n");
-            printf("REGISTERS:\n");
-            printf("Accumlator: %d\n", *acc);
-            printf("instructionCounter: %d\n", *instruction_counter);
-            printf("instructionRegister: %d\n", *instruction_register);
-            printf("operationCode: %d\n", *operationCode);
-            printf("operand: %d\n", *operand);
-
-            printf("\nMEMORY:\n");
-            int i;
-            for(i = 0; i < 100; i = i + 10){
-                printf("\n");
-                int k = 0;
-                for(k = 0; k < 10; k++){
-                    printf("%6d ", memory[i+k]);
-                }
+            if(*(memory+*operand) != 0){
+                *acc = (*(memory + *operand))%(*acc);
             }
-            printf("\n");
-            exit(0);
-        }
+            else{
+                printf("\n*** Attempt to divide by zero ***\n");
+                printf("*** Simpletron execution abnormally terminated ***\n");
+                printf("REGISTERS:\n");
+                printf("Accumlator: %d\n", *acc);
+                printf("instructionCounter: %d\n", *instruction_counter);
+                printf("instructionRegister: %d\n", *instruction_register);
+                printf("operationCode: %d\n", *operationCode);
+                printf("operand: %d\n", *operand);
+
+                printf("\nMEMORY:\n");
+                int i;
+                for(i = 0; i < 100; i = i + 10){
+                    printf("\n");
+                    int k = 0;
+                    for(k = 0; k < 10; k++){
+                        printf("%6d ", memory[i+k]);
+                    }
+                }
+                printf("\n");
+                exit(0);
+            }
         break;
+
+        case POW:
+            *acc = pow(*(memory + *operand),(*acc));
+            break;
+
         case BRANCH:
             *instruction_counter = *operand - 1;  //-1 porque no fim do loop ele é incrementado em 1
             break;
