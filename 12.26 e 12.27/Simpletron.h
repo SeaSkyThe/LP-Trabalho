@@ -11,6 +11,9 @@
 
 #define STORE 21  //Armazena uma 'word' do acumulador em uma posição da memória
 
+// HOMEBREW
+#define LOADINT 22  //Armazena um inteiro no acumulador
+
 // OPERAÇÕES ARITIMÉTICAS
 #define ADD 30      //Soma uma 'word' de uma posição da memória à 'word' no que está no acumulador (deixa o resultado no acumulador)
 
@@ -66,6 +69,10 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
             *(memory + *operand) = *acc;
             break;
 
+        case LOADINT:
+            *acc = *operand;
+            break;
+
         case ADD:
             *acc = *acc + (*(memory + *operand));
             break;
@@ -76,7 +83,7 @@ void verify_and_execute_operation(int *operationCode, int *operand, int *memory,
 
         case DIVIDE:
             if(*(memory+*operand) != 0){
-                *acc = *(*(memory + *operand))/(*acc);
+                *acc = (*(memory + *operand))/(*acc);
             }
             else{
                 printf("\n*** Attempt to divide by zero ***\n");

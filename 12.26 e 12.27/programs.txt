@@ -1,8 +1,5 @@
-10 rem      calculate the average of 3 numbers
-20 input i
-30 input j
-50 rem      calculate the average
-60 let l = i%
-70 rem      print result
-80 print k
-90 end
+05 rem teste
+10 input x
+15 let y = ( x % 2 ) + 1
+20 print y
+25 end

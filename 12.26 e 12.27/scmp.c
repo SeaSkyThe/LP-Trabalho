@@ -107,7 +107,7 @@ int evaluatePostfixExpression(char *expr, int* current_variable_entry, int* curr
     if(isOperator(current_char)){
       x = pop(stack);
       y = pop(stack);
-      if (debug) printf("\nWARD \"%d\", \"%d\" \n", x, y);
+      if (debug) printf("\nWARD \"%d\", \"%d\" (%d) \n", x, y, *current_variable_entry);
       //  LOAD y
       add_compiled_command((20 * 100) + y);
       //  OPERATE on x
@@ -129,6 +129,7 @@ int evaluatePostfixExpression(char *expr, int* current_variable_entry, int* curr
           break;
       }
       add_compiled_command((21 * 100) + *current_variable_entry);
+      if (debug) printf("%d", (21 * 100) + *current_variable_entry);
       push(stack, *current_variable_entry);
       //  Salta o espaco de memoria temporario
       *current_variable_entry -= 1;
@@ -136,6 +137,10 @@ int evaluatePostfixExpression(char *expr, int* current_variable_entry, int* curr
       if (!has_an_entry(&current_char))
         //  Adiciona na tabela de simbolos
         add_to_table(&current_char, is_token_word(&current_char), 1, current_variable_entry, current_table_entry);
+      if (is_token_word(&current_char) == 'C') {
+        add_compiled_command((22 * 100) + current_char - '0');
+        add_compiled_command((21 * 100) + get_location_from_table(&current_char));
+      }
       int value = get_location_from_table(&current_char);
       if (debug) printf("\nAI MDS: %d for %c\n", value, current_char);
       push(stack , value);
@@ -305,6 +310,9 @@ void main (int argc, char *argv[]) {
         convertToPostfix(statement, postfix);
         int result = evaluatePostfixExpression(postfix, &current_variable_entry, &current_table_entry);
         add_compiled_command((20 * 100) + result);
+        if (!has_an_entry(receiver))
+          //  Adiciona variavel na tabela de simbolos
+          add_to_table(receiver, is_token_word(receiver), 1, &current_variable_entry, &current_table_entry);
         add_compiled_command((21 * 100) + get_location_from_table(receiver));
       } else if (strcmp(tokens_in_the_line, "goto") == 0) {
         //  Pega a proxima token (linha)
